@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  height: 34px;
+  height: 100px;
   margin: 25px;
   border: 1px solid lightgray;
 }
@@ -32,27 +32,30 @@
 }
 
 [data-color] {
-  width: 25px;
+  width: 50px;
   float: left;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 [data-color="blue"] {
-  height: 33px;
   background-color: blue;
 }
 
 [data-color="green"] {
-  height: 33px;
+  width: 100px;
   background-color: green;
 }
 
 [data-color="red"] {
-  height: 33px;
+  width: 150px;
   background-color: red;
 }
 
 [data-color="yellow"] {
-  height: 33px;
+  width: 200px;
   background-color: yellow;
 }
 

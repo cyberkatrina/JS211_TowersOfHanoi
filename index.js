@@ -7,26 +7,33 @@
 // * Why are you get a warning in your console? Fix it.
 // * Delete these comment lines!
 
-const stone = null
+
+let stone = null
+let pickUp = true
 
 // this function is called when a row is clicked. 
 // Open your inspector tool to see what is being captured and can be used.
 const selectRow = (row) => {
-  const currentRow = row.getAttribute("data-row")
-  
+  let currentRow = row.getAttribute("data-row")
   console.log("Yay, we clicked an item", row)
   console.log("Here is the stone's id: ", row.id)
   console.log("Here is the stone's data-size: ", currentRow)
-
-  pickUpStone(row.id)
+  if (pickUp == true) {
+    pickUpStone(row.id)
+  }
+  else {
+    dropStone(row.id, stone)
+  }
+  
 } 
 
 // this function can be called to get the last stone in the stack
 // but there might be something wrong with it...
 const pickUpStone = (rowID) => {
-  const selectedRow = document.getElementById(rowID);
-  stone = selectedRow.removeChild(selectedRow.lastChild);
+  let selectedRow = document.getElementById(rowID);
+  stone = selectedRow.removeChild(selectedRow.lastElementChild);
   console.log(stone)
+  pickUp = false
 }
 
 // You could use this function to drop the stone but you'll need to toggle between pickUpStone & dropStone
@@ -34,8 +41,32 @@ const pickUpStone = (rowID) => {
 // Something like: if(!stone){pickupStone} else{dropStone}
 
 const dropStone = (rowID, stone) => {
-  document.getElementById(rowID).appendChild(stone)
-  stone = null
+  // console.log("stone:", stone.id)
+  let child =  document.getElementById(rowID).lastElementChild
+  // console.log("row:", child.id)
+  
+  if (child == null || child.id > stone.id) {
+    document.getElementById(rowID).appendChild(stone)
+    stone = null
+    pickUp = true
+  }
+  else {
+    window.alert("can't place stone here")
+  }
+  checkForWin()
+  
+}
+
+const checkForWin = () => {
+  let topRow = document.getElementById("top-row").childElementCount
+  let midRow = document.getElementById("middle-row").childElementCount
+  if (topRow == 4 || midRow == 4) {
+    setTimeout(() => {
+      window.alert("YOU WIN!")
+    }, 500);
+    
+  }
+
 }
 
 // * Remember you can use your logic from 'main.js' to maintain the rules of the game. But how? Follow the flow of data just like falling dominoes.

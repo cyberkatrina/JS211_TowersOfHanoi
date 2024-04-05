@@ -16,6 +16,8 @@ const rl = readline.createInterface({
         // * 4 is the largest, 
         // * 1 is the smallest
 
+
+// start at stack a and move them all to stack c in the same order
 let stacks = {
   a: [4, 3, 2, 1],
   b: [],
@@ -30,27 +32,47 @@ const printStacks = () => {
 }
 
 // Next, what do you think this function should do?
-const movePiece = () => {
+const movePiece = (startStack, endStack) => {
   // Your code here
-
+  // remove piece from start stack and add it to end stack
+  let piece = stacks[startStack].pop()
+  stacks[endStack].push(piece)
 }
 
 // Before you move, should you check if the move it actually allowed? Should 3 be able to be stacked on 2
-const isLegal = () => {
+const isLegal = (startStack, endStack) => {
   // Your code here
-
+  // assigns pieces to be the last number in each stack array
+  let piece1 = stacks[startStack][stacks[startStack].length-1]
+  let piece2 = stacks[endStack][stacks[endStack].length-1]
+  if (piece1 > piece2) {
+    return false
+  }
+  else {
+    return true
+  }
 }
 
 // What is a win in Towers of Hanoi? When should this function run?
 const checkForWin = () => {
   // Your code here
-
+  // check if stack a and stack c are both empty
+  if (stacks.a.length == 0 && stacks.c.length == 0) {
+    return true
+  }
+  else {
+    return false
+  }
 }
 
 // When is this function called? What should it do with its argument?
 const towersOfHanoi = (startStack, endStack) => {
   // Your code here
-
+  // if the move is allowed, complete the move and check if we won
+  if (isLegal(startStack, endStack)) {
+    movePiece(startStack, endStack)
+    checkForWin()
+  }
 }
 
 const getPrompt = () => {
