@@ -18,6 +18,7 @@ const selectRow = (row) => {
   console.log("Yay, we clicked an item", row)
   console.log("Here is the stone's id: ", row.id)
   console.log("Here is the stone's data-size: ", currentRow)
+  // alternate between picking up the stone and dropping it
   if (pickUp == true) {
     pickUpStone(row.id)
   }
@@ -31,8 +32,8 @@ const selectRow = (row) => {
 // but there might be something wrong with it...
 const pickUpStone = (rowID) => {
   let selectedRow = document.getElementById(rowID);
+  // remove the last stone on the selected row
   stone = selectedRow.removeChild(selectedRow.lastElementChild);
-  console.log(stone)
   pickUp = false
 }
 
@@ -41,10 +42,10 @@ const pickUpStone = (rowID) => {
 // Something like: if(!stone){pickupStone} else{dropStone}
 
 const dropStone = (rowID, stone) => {
-  // console.log("stone:", stone.id)
+  // get the last stone of the selected row
   let child =  document.getElementById(rowID).lastElementChild
-  // console.log("row:", child.id)
-  
+  // compare the last stone of that row with the stone we want to drop on top
+  // only allow drop if it is smaller than the last one in the row
   if (child == null || child.id > stone.id) {
     document.getElementById(rowID).appendChild(stone)
     stone = null
@@ -60,6 +61,7 @@ const dropStone = (rowID, stone) => {
 const checkForWin = () => {
   let topRow = document.getElementById("top-row").childElementCount
   let midRow = document.getElementById("middle-row").childElementCount
+  // check if either the top or middle row have all 4 stones
   if (topRow == 4 || midRow == 4) {
     setTimeout(() => {
       window.alert("YOU WIN!")
